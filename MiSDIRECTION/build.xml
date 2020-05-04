@@ -1,0 +1,43 @@
+<project name="MiSDIRECTION" basedir="." default="main">
+
+	<property name="src.dir" value="src" />
+
+	<property name="build.dir" value="build" />
+
+	<property name="res.dir" value="${src.dir}/main/resources" />
+
+	<property name="jar.dir" value="dist" />
+
+	<property name="main-class" value="main.java.Main" />
+
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="compile">
+		<mkdir dir="${build.dir}" />
+		<javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" />
+		<copy todir="${build.dir}/main/resources">
+			<fileset dir="${res.dir}" includes="*" />
+		</copy>
+	</target>
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${jar.dir}" />
+		<jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${build.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${main-class}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="run" depends="jar">
+		<java jar="${jar.dir}/${ant.project.name}.jar" fork="true" />
+	</target>
+
+	<target name="clean-build" depends="clean,jar" />
+
+	<target name="main" depends="clean,run" />
+
+</project>
