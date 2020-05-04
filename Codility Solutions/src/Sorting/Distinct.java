@@ -17,7 +17,6 @@ public class Distinct {
 	static class Solution {
 	    public int solution(int[] A) {
 	        // write your code in Java SE 8
-	    	int ans = 0;
 	    	Set<Integer> set = new HashSet<Integer>(); 
 	    	for(int n : A) {
 	    		set.add(n);
